@@ -1,0 +1,10 @@
+com\bestbuyapi\cucumber\stepdefs\ServicesStepdefs.class
+com\bestbuyapi\cucumber\stepdefs\StoresStepdefs.class
+com\bestbuyapi\crudtest\ProductCRUDTest.class
+com\bestbuyapi\crudtest\ServicesCRUDTest.class
+com\bestbuyapi\cucumber\stepdefs\ProductsStepdefs.class
+com\bestbuyapi\cucumber\stepdefs\CategoriesStepdefs.class
+com\bestbuyapi\testbase\TestBase.class
+com\bestbuyapi\crudtest\StoresCRUDTest.class
+com\bestbuyapi\cucumber\CucumberRunner.class
+com\bestbuyapi\crudtest\CategoriesCRUDTest.class

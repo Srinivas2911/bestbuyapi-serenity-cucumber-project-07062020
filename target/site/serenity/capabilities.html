@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Requirements</title>
+    <link rel="shortcut icon" href="favicon.ico">
+
+<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+<!--[if IE 7]>
+<link rel="stylesheet" href="font-awesome/css/font-awesome-ie7.min.css">
+<![endif]--><!-- JQuery -->
+<script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script><!-- Bootstrap -->
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="bootstrap/js/bootstrap.min.js"></script><link rel="stylesheet" href="css/core.css"/>
+<link rel="stylesheet" href="css/link.css"/>
+<link type="text/css" media="screen" href="css/screen.css" rel="Stylesheet"/><!-- JQuery-UI -->
+<link type="text/css" href="jqueryui/1.11.2-start/jquery-ui.min.css" rel="Stylesheet" />
+<script type="text/javascript" src="jqueryui/1.11.2-start/jquery-ui.min.js"></script><!-- DataTables -->
+<link type="text/css" href="datatables/1.10.4/media/jqueryui/dataTables.jqueryui.css" rel="Stylesheet"/>
+<link type="text/css" href="css/tables.css" rel="stylesheet" />
+
+<script type="text/javascript" src="datatables/1.10.4/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="datatables/1.10.4/media/jqueryui/dataTables.jqueryui.min.js"></script><!-- jQplot -->
+<!--[if IE]>
+<script language="javascript" type="text/javascript" src="excanvas/3/excanvas.compiled.js"></script>
+<![endif]--><link rel="stylesheet" type="text/css" href="jqplot/1.0.8/jquery.jqplot.min.css"/>
+<script type="text/javascript" src="jqplot/1.0.8/jquery.jqplot.min.js"></script>
+<script type="text/javascript" src="jqplot/1.0.8/plugins/jqplot.pieRenderer.min.js"></script>
+
+
+
+
+    <script class="code" type="text/javascript">$(document).ready(function () {
+        var plot1 = $.jqplot('coverage_pie_chart', [
+            [
+                ['Passing', 4],
+                ['Pending', 0],
+                ['Ignored', 0],
+                ['Failing', 0],
+                ['Errors',  0],
+                ['Compromised',  0],
+                ['Untested',  1],
+            ]
+        ], {
+            gridPadding: {top: 0, bottom: 38, left: 0, right: 0},
+            seriesColors: [
+                '#30cb23',
+                '#a2f2f2',
+                '#eeeadd',
+                '#f8001f',
+                '#fc6e1f',
+                'fuchsia',
+                'darkgrey'],
+            seriesDefaults: {
+                renderer: $.jqplot.PieRenderer,
+                trendline: {show: false},
+                rendererOptions: {padding: 8, showDataLabels: true}
+            },
+            legend: {
+                show: true,
+                placement: 'outside',
+                rendererOptions: {
+                    numberRows: 3
+                },
+                location: 's',
+                marginTop: '15px'
+            },
+            series: [
+                {label: '4 requirements tested successfully'},
+                {label: '0 requirements pending'},
+                {label: '0} requirements skipped'},
+                {label: '0} requirements with failures'},
+                {label: '0} requirements with errors'},
+                {label: '0} requirements compromised'},
+                {label: '1} requirements untested'},
+            ]
+        });
+        // Results table
+        $('#test-results-table').DataTable({
+            "order": [
+                [ 1, "asc" ]
+            ],
+            "pageLength": 100,
+            "lengthMenu": [ [50, 100, 200, -1] , [50, 100, 200, "All"] ]
+        });
+
+        // Results table
+        $('#req-results-table').DataTable({
+            "order": [
+                [ 1, "asc" ]
+            ],
+            "pageLength": 100,
+            "lengthMenu": [ [50, 100, 200, -1] , [50, 100, 200, "All"] ]
+        });
+
+        $('#examples-table').DataTable({
+            "order": [
+                [2, "asc"]
+            ],
+            "pageLength": 25
+        });
+        $("#requirements-tabs").tabs();
+        $("#test-tabs").tabs();
+    })
+    ;
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".read-more-link").click(function () {
+                $(this).nextAll("div.read-more-text").toggle();
+                var isrc = $(this).find("img").attr('src');
+                if (isrc == 'images/plus.png') {
+                    $(this).find("img").attr("src", function () {
+                        return "images/minus.png";
+                    });
+                } else {
+                    $(this).find("img").attr("src", function () {
+                        return "images/plus.png";
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+
+<body class="results-page">
+<div id="topheader">
+    <div id="topbanner">
+        <div id="logo"><a href="index.html"><img src="images/serenity-logo.png" border="0"/></a></div>
+        <div id="projectname-banner" style="float:right">
+            <span class="projectname">Best Buy API</span>
+        </div>
+    </div>
+</div>
+
+
+<div class="middlecontent">
+    <div id="contenttop">
+        <div class="middlebg">
+            <span class="breadcrumbs">
+            <a href='index.html'>Home</a> > <a href="capabilities.html">Requirements</a>
+            </span>
+        </div>
+        <div class="rightbg"></div>
+    </div>
+
+    <div class="clr"></div>
+
+    <!--/* starts second table*/-->
+
+<div>
+    <ul class="nav nav-tabs" role="tablist">
+        <li >
+            <a href="index.html"><i class="fa fa-check-square-o"></i> Overall Test Results</a>
+        </li>
+        <li class="active">
+            <a href="#"><i class="fa fa-book"></i> Requirements</a>
+        </li>
+        <li >
+            <a href="576946480b52ad056d6f5bddf874399c83582ecf90963cc074a14c70580e7d9f.html"><i class="fa fa-comments-o"></i> Features</a>
+        </li>
+        <li >
+            <a href="2a4631d87648e59c428d4cf0e9247f9d286e4679f436ca2ce872e931eb4dfd58.html"><i class="fa fa-comments-o"></i> Stories</a>
+        </li>
+    </ul>
+    <span class="date-and-time"><a href="build-info.html"><i class="fa fa-info-circle"></i></a> Report generated 09-06-2020 11:15</span>
+    <br style="clear:left"/>
+</div>
+
+    <div class="clr"></div>
+
+    <div id="beforetable"></div>
+    <div id="results-dashboard">
+        <div class="middlb">
+            <div class="table">
+
+                <div id="requirements-summary">
+                    <div id="coverage_pie_chart"
+                         style="margin-top:10px; margin-left:10px; width:250px; height:250px;"></div>
+                    <div id="coverage_summary">
+                        <div>
+                            <h4>Requirements Overview</h4>
+                            <table class="summary-table">
+                                <head>
+                                    <tr>
+                                        <th>Requirement Type</th>
+                                        <th>Total</th>
+                                        <th>Pass&nbsp;<i class="icon-check"></i></th>
+                                        <th>Fail&nbsp;<i class="icon-thumbs-down"></i></th>
+                                        <th>Pending&nbsp;<i class="icon-calendar"></i></th>
+                                        <th>Ignored&nbsp;<i class="icon-ban-circle"></i></th>
+                                            <th>Untested&nbsp;<i class="icon-question"></i></th>
+                                    </tr>
+                                </head>
+                                <body>
+                                    <tr>
+                                        <td class="summary-leading-column"><a href="#requirements-tabs">Features</a></td>
+                                        <td>2</td>
+                                        <td>1</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>1</td>
+                                            <td>1</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="summary-leading-column"><a href="2a4631d87648e59c428d4cf0e9247f9d286e4679f436ca2ce872e931eb4dfd58.html">Stories</a></td>
+                                        <td>5</td>
+                                        <td>4</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>1</td>
+                                            <td>1</td>
+                                    </tr>
+
+                                <tr>
+                                    <td class="summary-leading-column"><a href="#test-results-table">Acceptance Criteria (tests)</a></td>
+                                    <td>37</td>
+                                    <td>37</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td></td>
+                                </tr>
+                                </body>
+                            </table>
+                        </div>
+
+
+
+
+
+<div>
+    <h4>Test Result Summary</h4>
+    <table class="summary-table">
+        <head>
+            <tr>
+                <th>Test Type</th>
+                <th>Total</th>
+                <th>Pass&nbsp;<i class="icon-check"/> </th>
+                <th>Fail&nbsp;<i class="icon-thumbs-down"/></th>
+                <th>Pending&nbsp;<i class="icon-calendar"/></th>
+                <th>Ignore/Skip&nbsp;<i class="icon-ban-circle"/></th>
+            </tr>
+        </head>
+        <body>
+        <tr>
+            <td class="summary-leading-column">Automated</td>
+            <td>37</td>
+            <td>37 (100%)</td>
+            <td>0 (0%)</td>
+            <td>0 (0%)</td>
+            <td>0 (0%)</td>
+        </tr>
+        <tr>
+            <td class="summary-leading-column">Manual</td>
+            <td>0</td>
+            <td>0 (0%)</td>
+            <td>0 (0%)</td>
+            <td>0 (0%)</td>
+            <td>0 (0%)</td>
+        </tr>
+        <tr>
+            <td class="summary-leading-column">Total</td>
+            <td>37</td>
+            <td>37 (100%)</td>
+            <td>0 (0%)</td>
+            <td>0 (0%)</td>
+            <td>0 (0%)</td>
+        </tr>
+        <tr>
+            <td class="summary-leading-column">Total Duration</td>
+                <td colspan="5">1 minutes 39 seconds</td>
+        </tr>
+        </body>
+    </table>
+</div>
+                    </div>
+                </div>
+                <div class="clr"></div>
+
+                <div id="requirements-tabs">
+                        <ul>
+                                <li><a href="#tabs-1">
+                                Features (2)
+                                </a></li>
+                        </ul>
+                        <div id="tabs-1" class="capabilities-table">
+                            <div id="tabs-1" class="capabilities-table">
+
+
+<div id="req_list_tests" class="table">
+    <div class="test-results">
+        <table id="req-results-table">
+            <thead>
+            <tr>
+                <th width="30" class="test-results-heading">&nbsp;</th>
+                <th width="65" class="test-results-heading">ID</th>
+                <th width="525" class="test-results-heading">Feature</th>
+                    <th width="65" class="test-results-heading">Stories</th>
+                <th class="test-results-heading" width="75px">Automated<br/>Tests</th>
+                    <th class="test-results-heading" width="75px">Manual<br/>Tests</th>
+
+                <th width="125px" class="test-results-heading">Test Results</th>
+
+                <th width="125px" class="test-results-heading">Working Stories</th>
+            </tr>
+            <tbody>
+
+
+
+                <tr class="test-SUCCESS requirementRow">
+                    <td class="requirementRowCell">
+                        <span class="status_icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                        <span style="display:none">1</span>
+                    </td>
+                    <td class="cardNumber requirementRowCell"></td>
+
+                    <td class="SUCCESS-text requirementRowCell">
+                        <a href="javaScript:void(0)" class="read-more-link">
+                            <img src="images/plus.png" height="16"/></a>
+                        <span class="requirementName"><a
+                                href="284279423a8270097cce94ed4f2b5db1e70423b8675074040aa7ae268ef80ef2.html">Crudtest</a></span>
+
+                        <div class="requirementNarrative read-more-text"></div>
+                    </td>
+
+                        <td class="bluetext requirementRowCell">4</td>
+
+                    <td class="greentext highlighted-value requirementRowCell">16</td>
+<!--
+                    <td class="greentext requirementRowCell">16</td>
+                    <td class="bluetext requirementRowCell">0</td>
+                    <td class="redtext requirementRowCell">0</td>
+                    <td class="lightorangetext requirementRowCell">0</td>
+                    <td class="violettext requirementRowCell">0</td>
+-->
+                        <td class="greentext highlighted-value requirementRowCell">0</td>
+<!--
+                        <td class="greentext requirementRowCell">0</td>
+                        <td class="bluetext requirementRowCell">0</td>
+                        <td class="redtext requirementRowCell">0</td>
+                        <td class="lightorangetext requirementRowCell">0</td>
+                        -->
+
+                    <td width="125px" class="lightgreentext requirementRowCell">
+
+
+<table>
+    <tr>
+        <td width="40px">
+            <div class="small">100%</div>
+        </td>
+        <td width="125px">
+            <div class="percentagebar"
+                 title="  - Total tests: 16
+  - Passing tests: 16 (100%)
+  - Failing tests: 0 (0%)
+  - Tests with errors: 0 (0%)
+  - Compromised tests 0 (0%)
+  - Pending tests: 0 (0%)
+  - Ignored or skipped tests: 0 (0%)"
+                 style="width: 125px;">
+                <div class="pendingbar"
+                     title="  - Total tests: 16
+  - Passing tests: 16 (100%)
+  - Failing tests: 0 (0%)
+  - Tests with errors: 0 (0%)
+  - Compromised tests 0 (0%)
+  - Pending tests: 0 (0%)
+  - Ignored or skipped tests: 0 (0%)"
+                     style="width: 125px;">
+                    <div class="ignoredbar"
+                         style="width: 125px;"
+                         title="  - Total tests: 16
+  - Passing tests: 16 (100%)
+  - Failing tests: 0 (0%)
+  - Tests with errors: 0 (0%)
+  - Compromised tests 0 (0%)
+  - Pending tests: 0 (0%)
+  - Ignored or skipped tests: 0 (0%)">
+                        <div class="compromisedbar"
+                             style="width: 125px;"
+                             title="  - Total tests: 16
+  - Passing tests: 16 (100%)
+  - Failing tests: 0 (0%)
+  - Tests with errors: 0 (0%)
+  - Compromised tests 0 (0%)
+  - Pending tests: 0 (0%)
+  - Ignored or skipped tests: 0 (0%)">
+                            <div class="errorbar"
+                                 style="width: 125px;"
+                                 title="  - Total tests: 16
+  - Passing tests: 16 (100%)
+  - Failing tests: 0 (0%)
+  - Tests with errors: 0 (0%)
+  - Compromised tests 0 (0%)
+  - Pending tests: 0 (0%)
+  - Ignored or skipped tests: 0 (0%)">
+                                <div class="failingbar"
+                                     style="width: 125px;"
+                                     title="  - Total tests: 16
+  - Passing tests: 16 (100%)
+  - Failing tests: 0 (0%)
+  - Tests with errors: 0 (0%)
+  - Compromised tests 0 (0%)
+  - Pending tests: 0 (0%)
+  - Ignored or skipped tests: 0 (0%)">
+                                    <div class="passingbar"
+                                         style="width: 125px;"
+                                         title="  - Total tests: 16
+  - Passing tests: 16 (100%)
+  - Failing tests: 0 (0%)
+  - Tests with errors: 0 (0%)
+  - Compromised tests 0 (0%)
+  - Pending tests: 0 (0%)
+  - Ignored or skipped tests: 0 (0%)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+                    </td>
+
+                    <td width="125px" class="lightgreentext requirementRowCell">
+
+
+<table>
+    <tr>
+        <td width="40px">
+            <div class="small">100%</div>
+        </td>
+        <td width="125px">
+            <div class="percentagebar"
+                 title="Crudtest:
+  - Passing Stories: 4 (100%
+  - Stories Failing: 0 (0%
+  - Stories Failing with errors: 0
+  - Compromised Stories: 0
+  - Pending Stories: 0
+  - Ignored or skipped Stories: 0
+  - Untested Stories: 0 (0%"
+                 style="width: 125px;">
+                <div class="pendingbar"
+                     title="Crudtest:
+  - Passing Stories: 4 (100%
+  - Stories Failing: 0 (0%
+  - Stories Failing with errors: 0
+  - Compromised Stories: 0
+  - Pending Stories: 0
+  - Ignored or skipped Stories: 0
+  - Untested Stories: 0 (0%"
+                     style="width: 125px;">
+                    <div class="ignoredbar"
+                         style="width: 125px;"
+                         title="Crudtest:
+  - Passing Stories: 4 (100%
+  - Stories Failing: 0 (0%
+  - Stories Failing with errors: 0
+  - Compromised Stories: 0
+  - Pending Stories: 0
+  - Ignored or skipped Stories: 0
+  - Untested Stories: 0 (0%">
+                        <div class="compromisedbar"
+                             style="width: 125px;"
+                             title="Crudtest:
+  - Passing Stories: 4 (100%
+  - Stories Failing: 0 (0%
+  - Stories Failing with errors: 0
+  - Compromised Stories: 0
+  - Pending Stories: 0
+  - Ignored or skipped Stories: 0
+  - Untested Stories: 0 (0%">
+                            <div class="errorbar"
+                                 style="width: 125px;"
+                                 title="Crudtest:
+  - Passing Stories: 4 (100%
+  - Stories Failing: 0 (0%
+  - Stories Failing with errors: 0
+  - Compromised Stories: 0
+  - Pending Stories: 0
+  - Ignored or skipped Stories: 0
+  - Untested Stories: 0 (0%">
+                                <div class="failingbar"
+                                     style="width: 125px;"
+                                     title="Crudtest:
+  - Passing Stories: 4 (100%
+  - Stories Failing: 0 (0%
+  - Stories Failing with errors: 0
+  - Compromised Stories: 0
+  - Pending Stories: 0
+  - Ignored or skipped Stories: 0
+  - Untested Stories: 0 (0%">
+                                    <div class="passingbar"
+                                         style="width: 125px;"
+                                         title="Crudtest:
+  - Passing Stories: 4 (100%
+  - Stories Failing: 0 (0%
+  - Stories Failing with errors: 0
+  - Compromised Stories: 0
+  - Pending Stories: 0
+  - Ignored or skipped Stories: 0
+  - Untested Stories: 0 (0%">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+                    </td>
+                </tr>
+
+
+                <tr class="test-SUCCESS requirementRow">
+                    <td class="requirementRowCell">
+                        <span class="status_icon"><i class='fa fa-square-o pending-icon ' title='PENDING'></i></span>
+                        <span style="display:none">2</span>
+                    </td>
+                    <td class="cardNumber requirementRowCell"></td>
+
+                    <td class="SUCCESS-text requirementRowCell">
+                        <a href="javaScript:void(0)" class="read-more-link">
+                            <img src="images/plus.png" height="16"/></a>
+                        <span class="requirementName"><a
+                                href="bd9be3180ed6b1e586cada90b614a1698fd7b61d4d9d5a655d56a2ba14293bbb.html">Cucumber</a></span>
+
+                        <div class="requirementNarrative read-more-text"></div>
+                    </td>
+
+                        <td class="bluetext requirementRowCell">1</td>
+
+                    <td class="greentext highlighted-value requirementRowCell">0</td>
+<!--
+                    <td class="greentext requirementRowCell">0</td>
+                    <td class="bluetext requirementRowCell">0</td>
+                    <td class="redtext requirementRowCell">0</td>
+                    <td class="lightorangetext requirementRowCell">0</td>
+                    <td class="violettext requirementRowCell">0</td>
+-->
+                        <td class="greentext highlighted-value requirementRowCell">0</td>
+<!--
+                        <td class="greentext requirementRowCell">0</td>
+                        <td class="bluetext requirementRowCell">0</td>
+                        <td class="redtext requirementRowCell">0</td>
+                        <td class="lightorangetext requirementRowCell">0</td>
+                        -->
+
+                    <td width="125px" class="lightgreentext requirementRowCell">
+
+
+<table>
+    <tr>
+        <td width="40px">
+            <div class="small">0%</div>
+        </td>
+        <td width="125px">
+            <div class="percentagebar"
+                 title="  - Total tests: 0
+  - Passing tests: 0 (0%)
+  - Failing tests: 0 (0%)
+  - Tests with errors: 0 (0%)
+  - Compromised tests 0 (0%)
+  - Pending tests: 0 (0%)
+  - Ignored or skipped tests: 0 (0%)"
+                 style="width: 125px;">
+                <div class="pendingbar"
+                     title="  - Total tests: 0
+  - Passing tests: 0 (0%)
+  - Failing tests: 0 (0%)
+  - Tests with errors: 0 (0%)
+  - Compromised tests 0 (0%)
+  - Pending tests: 0 (0%)
+  - Ignored or skipped tests: 0 (0%)"
+                     style="width: 0px;">
+                    <div class="ignoredbar"
+                         style="width: 0px;"
+                         title="  - Total tests: 0
+  - Passing tests: 0 (0%)
+  - Failing tests: 0 (0%)
+  - Tests with errors: 0 (0%)
+  - Compromised tests 0 (0%)
+  - Pending tests: 0 (0%)
+  - Ignored or skipped tests: 0 (0%)">
+                        <div class="compromisedbar"
+                             style="width: 0px;"
+                             title="  - Total tests: 0
+  - Passing tests: 0 (0%)
+  - Failing tests: 0 (0%)
+  - Tests with errors: 0 (0%)
+  - Compromised tests 0 (0%)
+  - Pending tests: 0 (0%)
+  - Ignored or skipped tests: 0 (0%)">
+                            <div class="errorbar"
+                                 style="width: 0px;"
+                                 title="  - Total tests: 0
+  - Passing tests: 0 (0%)
+  - Failing tests: 0 (0%)
+  - Tests with errors: 0 (0%)
+  - Compromised tests 0 (0%)
+  - Pending tests: 0 (0%)
+  - Ignored or skipped tests: 0 (0%)">
+                                <div class="failingbar"
+                                     style="width: 0px;"
+                                     title="  - Total tests: 0
+  - Passing tests: 0 (0%)
+  - Failing tests: 0 (0%)
+  - Tests with errors: 0 (0%)
+  - Compromised tests 0 (0%)
+  - Pending tests: 0 (0%)
+  - Ignored or skipped tests: 0 (0%)">
+                                    <div class="passingbar"
+                                         style="width: 0px;"
+                                         title="  - Total tests: 0
+  - Passing tests: 0 (0%)
+  - Failing tests: 0 (0%)
+  - Tests with errors: 0 (0%)
+  - Compromised tests 0 (0%)
+  - Pending tests: 0 (0%)
+  - Ignored or skipped tests: 0 (0%)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+                    </td>
+
+                    <td width="125px" class="lightgreentext requirementRowCell">
+
+
+<table>
+    <tr>
+        <td width="40px">
+            <div class="small">0%</div>
+        </td>
+        <td width="125px">
+            <div class="percentagebar"
+                 title="Cucumber:
+  - Passing Stories: 0 (0%
+  - Stories Failing: 0 (0%
+  - Stories Failing with errors: 0
+  - Compromised Stories: 0
+  - Pending Stories: 0
+  - Ignored or skipped Stories: 0
+  - Untested Stories: 1 (100%"
+                 style="width: 125px;">
+                <div class="pendingbar"
+                     title="Cucumber:
+  - Passing Stories: 0 (0%
+  - Stories Failing: 0 (0%
+  - Stories Failing with errors: 0
+  - Compromised Stories: 0
+  - Pending Stories: 0
+  - Ignored or skipped Stories: 0
+  - Untested Stories: 1 (100%"
+                     style="width: 0px;">
+                    <div class="ignoredbar"
+                         style="width: 0px;"
+                         title="Cucumber:
+  - Passing Stories: 0 (0%
+  - Stories Failing: 0 (0%
+  - Stories Failing with errors: 0
+  - Compromised Stories: 0
+  - Pending Stories: 0
+  - Ignored or skipped Stories: 0
+  - Untested Stories: 1 (100%">
+                        <div class="compromisedbar"
+                             style="width: 0px;"
+                             title="Cucumber:
+  - Passing Stories: 0 (0%
+  - Stories Failing: 0 (0%
+  - Stories Failing with errors: 0
+  - Compromised Stories: 0
+  - Pending Stories: 0
+  - Ignored or skipped Stories: 0
+  - Untested Stories: 1 (100%">
+                            <div class="errorbar"
+                                 style="width: 0px;"
+                                 title="Cucumber:
+  - Passing Stories: 0 (0%
+  - Stories Failing: 0 (0%
+  - Stories Failing with errors: 0
+  - Compromised Stories: 0
+  - Pending Stories: 0
+  - Ignored or skipped Stories: 0
+  - Untested Stories: 1 (100%">
+                                <div class="failingbar"
+                                     style="width: 0px;"
+                                     title="Cucumber:
+  - Passing Stories: 0 (0%
+  - Stories Failing: 0 (0%
+  - Stories Failing with errors: 0
+  - Compromised Stories: 0
+  - Pending Stories: 0
+  - Ignored or skipped Stories: 0
+  - Untested Stories: 1 (100%">
+                                    <div class="passingbar"
+                                         style="width: 0px;"
+                                         title="Cucumber:
+  - Passing Stories: 0 (0%
+  - Stories Failing: 0 (0%
+  - Stories Failing with errors: 0
+  - Compromised Stories: 0
+  - Pending Stories: 0
+  - Ignored or skipped Stories: 0
+  - Untested Stories: 1 (100%">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+                            </div>
+                        </div>
+<table>
+    <tr>
+        <td>
+            <div><h3>Acceptance Criteria</h3></div>
+            <div id="test_list_tests" class="table">
+                <div class="test-results">
+                    <table id="test-results-table">
+                        <thead>
+                        <tr>
+                            <th width="50" class="test-results-heading">&nbsp;</th>
+                            <th width="%" class="test-results-heading">Tests</th>
+                            <th width="70" class="test-results-heading">Steps</th>
+
+                            <th width="100" class="test-results-heading">Started</th>
+                            <th width="100" class="test-results-heading">Took<br>(secs)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="69b6fdd6c3c358c6493a2178b2bc1879c3f0e6236d4284bc1c5f858c77da5cac.html" class="ellipsis"
+                                           title="Verify if best buy application categories can be accessed by users ">
+                                            Verify if best buy application categories can be accessed by users
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">3</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:16:21">11:16:21</td>
+
+                                <td class="SUCCESS-text">1.13</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="a40a4c57a0ffbc36cf03ca433a5c0810f8d98da1996275e994b6416eb320ac20.html" class="ellipsis"
+                                           title="Create a new Category & verify if the Category is added ">
+                                            Create a new Category &amp; verify if the Category is added
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">6</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:16:22">11:16:22</td>
+
+                                <td class="SUCCESS-text">0.3</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="4f3817ade3bf71cdaee5f3f1db02f8491f2f4793499f8d590888a560ba44cfe7.html" class="ellipsis"
+                                           title="Getting the Category by id and verifying ">
+                                            Getting the Category by id and verifying
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">6</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:16:23">11:16:23</td>
+
+                                <td class="SUCCESS-text">0.11</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="164606cc445ec9f3b5be87495976da6d9f4cc4282a6bedceb9390a0c951dcd82.html" class="ellipsis"
+                                           title="Updating the Category created and verify it is updated with status 200 ">
+                                            Updating the Category created and verify it is updated with status 200
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">6</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:16:23">11:16:23</td>
+
+                                <td class="SUCCESS-text">0.41</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="f6528888f762e146dd6352d011be03690220c71cd612ea0ef082df55b4eed813.html" class="ellipsis"
+                                           title="Deleting the Category created and verify it is deleted ">
+                                            Deleting the Category created and verify it is deleted
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">6</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:16:24">11:16:24</td>
+
+                                <td class="SUCCESS-text">0.36</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="bbeb088d8e9005dcf98f2c83359812cc0606727701fda673ace682647f755b91.html" class="ellipsis"
+                                           title="Creating a new category in the list ">
+                                            Creating a new category in the list
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">2</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:15:46">11:15:46</td>
+
+                                <td class="SUCCESS-text">22.05</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="898d1b0281e4dcb7c158fa0e37c149bc16024c4a093fe3760c4f0f5c744880a9.html" class="ellipsis"
+                                           title="Creating a new Service in the list ">
+                                            Creating a new Service in the list
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">2</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:15:47">11:15:47</td>
+
+                                <td class="SUCCESS-text">21.26</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="c03d787fa96bed2d037a63d1eef7543bb7a4892856c86df13afb3a746ebf81b7.html" class="ellipsis"
+                                           title="Verify service was added to the list ">
+                                            Verify service was added to the list
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">2</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:16:10">11:16:10</td>
+
+                                <td class="SUCCESS-text">0.73</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="976d45bd6a296c93790649fa4f9e43d808217d7b07b7acff2b3dcc597c485d92.html" class="ellipsis"
+                                           title="Verify category was added to the list ">
+                                            Verify category was added to the list
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">2</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:16:10">11:16:10</td>
+
+                                <td class="SUCCESS-text">0.63</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="c8c9c0a89813b595249ae3c9a4a580b63656972b7b5d00a7d5d7c2ce42e0e3a0.html" class="ellipsis"
+                                           title="Updating the category information and verifying  ">
+                                            Updating the category information and verifying
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">2</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:16:10">11:16:10</td>
+
+                                <td class="SUCCESS-text">0.96</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="6cbf5d2ccd743ed9cae738b603f84b9b8991ee6d89e9405a685230199d14c1b9.html" class="ellipsis"
+                                           title="Updating the service information and verifying  ">
+                                            Updating the service information and verifying
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">2</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:16:10">11:16:10</td>
+
+                                <td class="SUCCESS-text">0.9</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="f1455a42b62d8e36b997112d8873f9de0184895ae9621ae45dcd2ef03fd7926d.html" class="ellipsis"
+                                           title="Deleting the category information and verify if the category is deleted  ">
+                                            Deleting the category information and verify if the category is deleted
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">4</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:16:11">11:16:11</td>
+
+                                <td class="SUCCESS-text">2.48</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="85c0bc572ff47f0c9fea3ae3f253f1137904a86132de1a944b7d18b754380f1b.html" class="ellipsis"
+                                           title="Deleting the category information and verify if the category is deleted  ">
+                                            Deleting the category information and verify if the category is deleted
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">4</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:16:11">11:16:11</td>
+
+                                <td class="SUCCESS-text">2.42</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="61bf6ba2da133f0a84010a6d07f67a35b0771f91addd3033d17fd455656d8380.html" class="ellipsis"
+                                           title="Creating a new Store ">
+                                            Creating a new Store
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">2</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:16:18">11:16:18</td>
+
+                                <td class="SUCCESS-text">1.17</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="b51082d27121c36dfb7343ce2d3b24ebfeca7ce8cbe4f25808f15296bc7b61cb.html" class="ellipsis"
+                                           title="Getting a created Store ">
+                                            Getting a created Store
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">2</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:16:19">11:16:19</td>
+
+                                <td class="SUCCESS-text">0.38</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="9fe79d8fc1cd9a2af6273556c3a04414156a26abb822a30d1888b9dcb1e2c718.html" class="ellipsis"
+                                           title="Creating a new Product in the list ">
+                                            Creating a new Product in the list
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">2</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:16:19">11:16:19</td>
+
+                                <td class="SUCCESS-text">0.65</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="a94278ac825fd7b623ff7f728ecf9ecbf3ea9a1e6dae1b57f8f359e5c064f871.html" class="ellipsis"
+                                           title="This test will update the store information and verify the updated information ">
+                                            This test will update the store information and verify the updated information
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">2</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:16:19">11:16:19</td>
+
+                                <td class="SUCCESS-text">0.73</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="937b363d25f1f83433e50d03c3f545e32b42ab8e64a7ec7129a83c7882d70e06.html" class="ellipsis"
+                                           title="Verify product was added to the list ">
+                                            Verify product was added to the list
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">2</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:16:20">11:16:20</td>
+
+                                <td class="SUCCESS-text">0.43</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="c71f30c0a87e975e00e197703e8d6c059a51bd1a4e72aa4cb54ff3c4083f21c9.html" class="ellipsis"
+                                           title="This test will delete the store and verify the store is deleted  ">
+                                            This test will delete the store and verify the store is deleted
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">4</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:16:20">11:16:20</td>
+
+                                <td class="SUCCESS-text">0.79</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="13a64ea70fe6c246db3a9349f85229dd29d998f7e6222c7f06898b6c42a2077a.html" class="ellipsis"
+                                           title="Updating the product information and verifying  ">
+                                            Updating the product information and verifying
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">2</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:16:20">11:16:20</td>
+
+                                <td class="SUCCESS-text">0.6</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="f251c9c0406d94169ecf650b225861087152ff42d02595dae5b501939af75753.html" class="ellipsis"
+                                           title="Deleting the product information and verify if the product is deleted  ">
+                                            Deleting the product information and verify if the product is deleted
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">4</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:16:21">11:16:21</td>
+
+                                <td class="SUCCESS-text">0.65</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="6610c9f6a58d8ab9380869922d0b070ce047b3cdf08d97487bd989a7c322cca3.html" class="ellipsis"
+                                           title="Verify if best buy product application can be accessed by users ">
+                                            Verify if best buy product application can be accessed by users
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">3</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:16:24">11:16:24</td>
+
+                                <td class="SUCCESS-text">35.89</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="aaa930e85d85c1a9d5638f3e3e31706f03ea2103c71e491c0522d55e3243ae0d.html" class="ellipsis"
+                                           title="Create a new Product & verify if the product is added ">
+                                            Create a new Product &amp; verify if the product is added&nbsp;(2  examples)
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">18</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:17:00">11:17:00</td>
+
+                                <td class="SUCCESS-text">0.7</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="3914200abb666891ca401af896bd7f9e51fa02e16ff463958e04bf317ed8238d.html" class="ellipsis"
+                                           title="Getting the product by id and verifying ">
+                                            Getting the product by id and verifying
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">6</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:17:01">11:17:01</td>
+
+                                <td class="SUCCESS-text">0.11</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="34a2f63c63d6eb93375c2f9381013ce045ad30953254859141566ae691020a3e.html" class="ellipsis"
+                                           title="Updating the product created and verify it is updated with status 200 ">
+                                            Updating the product created and verify it is updated with status 200
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">6</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:17:01">11:17:01</td>
+
+                                <td class="SUCCESS-text">0.38</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="2fa2cc05ab5e8ac244c73b1ab19f183b1d5298813569e5f019d5b91463bce100.html" class="ellipsis"
+                                           title="Deleting the product created and verify it is deleted ">
+                                            Deleting the product created and verify it is deleted
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">6</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:17:02">11:17:02</td>
+
+                                <td class="SUCCESS-text">0.35</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="e67c4a46d2e3fb51932c398b5ea29b7e9bfd6fb30bf1f068fae7388d4c478beb.html" class="ellipsis"
+                                           title="Verify if best buy application services can be accessed by users ">
+                                            Verify if best buy application services can be accessed by users
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">3</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:17:03">11:17:03</td>
+
+                                <td class="SUCCESS-text">0.05</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="d7d5a8f9d8f7c7c60a3e879d8d84e4bd55cccd7785afc5d82be92d36b0667ecc.html" class="ellipsis"
+                                           title="Create a new Service & verify if the Service is added ">
+                                            Create a new Service &amp; verify if the Service is added
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">6</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:17:03">11:17:03</td>
+
+                                <td class="SUCCESS-text">0.37</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="571cbd85ebfcfbcd2e593d121644294939d102829946c9ad5b9408f558fe2a62.html" class="ellipsis"
+                                           title="Getting the services by id and verifying ">
+                                            Getting the services by id and verifying
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">6</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:17:04">11:17:04</td>
+
+                                <td class="SUCCESS-text">0.11</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="38040f30b5f2d515bc209215d108fa416710e641e766401d70f9ff0c0811fb6b.html" class="ellipsis"
+                                           title="Updating the Service created and verify it is updated with status 200 ">
+                                            Updating the Service created and verify it is updated with status 200
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">6</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:17:04">11:17:04</td>
+
+                                <td class="SUCCESS-text">0.25</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="aabde933ea91b4da461188b7b7869ffc5006ac41d69be58f7ca5647f113c8124.html" class="ellipsis"
+                                           title="Deleting the service created and verify it is deleted ">
+                                            Deleting the service created and verify it is deleted
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">6</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:17:04">11:17:04</td>
+
+                                <td class="SUCCESS-text">0.5</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="249a97fbd58fa4635b2fc211ea80f10c64f289844e5a20f9f89725b9194df22b.html" class="ellipsis"
+                                           title="Verify if best buy stores application can be accessed by users ">
+                                            Verify if best buy stores application can be accessed by users
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">3</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:17:05">11:17:05</td>
+
+                                <td class="SUCCESS-text">0.23</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="5a459e6a5e99a76c7f9e02e3a7fef00fd4c4eb6cc817e800e91980ab7789b855.html" class="ellipsis"
+                                           title="Create a new Store & verify if the product is added ">
+                                            Create a new Store &amp; verify if the product is added&nbsp;(1  examples)
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">9</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:17:06">11:17:06</td>
+
+                                <td class="SUCCESS-text">0.3</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="38b1626a3d81a33c656c3e3c76ad6735a4f88de09bccf2b3c3d69cf3aa92ac16.html" class="ellipsis"
+                                           title="Getting the Store by id and verifying ">
+                                            Getting the Store by id and verifying
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">6</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:17:06">11:17:06</td>
+
+                                <td class="SUCCESS-text">0.08</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="2a57045e5f4ec4e038d3d25554f5df9f65ca13a82bccdc0e80d708d33bd5409e.html" class="ellipsis"
+                                           title="Updating the Store created and verify it is updated with status 200 ">
+                                            Updating the Store created and verify it is updated with status 200
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">6</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:17:07">11:17:07</td>
+
+                                <td class="SUCCESS-text">0.29</td>
+                            </tr>
+
+                            <tr class="test-SUCCESS">
+                                <td><span class="summary-icon"><i class='fa fa-check-square-o success-icon ' title='SUCCESS'></i></span>
+                                    
+                                    <span style="display:none">SUCCESS</span></td>
+                                <td class="SUCCESS-text">
+                                    <div class="ellipsis">
+
+                                        <a href="8c2974b4951580e97157d7ee296a70d4a2fc4fc9f0dd3d63a16c7979041f4560.html" class="ellipsis"
+                                           title="Deleting the Store created and verify it is deleted ">
+                                            Deleting the Store created and verify it is deleted
+                                                <span class="related-issue-title"></span>
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="SUCCESS-text">6</td>
+
+
+                                <td class="SUCCESS-text" data-sort="2020-06-09 11:17:07">11:17:07</td>
+
+                                <td class="SUCCESS-text">0.31</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<div id="bottomfooter">
+    <span class="version">Serenity BDD version 1.5.1</span>
+</div>
+</body>
+</html>

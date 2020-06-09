@@ -1,0 +1,12 @@
+com\bestbuyapi\utils\TestUtils.class
+com\bestbuyapi\constant\Path.class
+com\bestbuyapi\model\StoresPojo.class
+com\bestbuyapi\model\ProductPojo.class
+com\bestbuyapi\steps\ServicesSteps.class
+com\bestbuyapi\model\CategoriesPojo.class
+com\bestbuyapi\model\ServicesPojo.class
+com\bestbuyapi\steps\CategoriesSteps.class
+com\bestbuyapi\steps\StoresSteps.class
+com\bestbuyapi\steps\ProductSteps.class
+com\bestbuyapi\constant\EndPoints.class
+com\bestbuyapi\utils\PropertyReader.class

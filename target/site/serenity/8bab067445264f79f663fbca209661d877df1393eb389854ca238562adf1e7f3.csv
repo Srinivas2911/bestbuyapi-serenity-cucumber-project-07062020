@@ -1,0 +1,6 @@
+"Story","Title","Result","Date","Stability","Duration (s)"
+"Testing the Services features on the best buy application","Verify if best buy application services can be accessed by users","SUCCESS","2020-06-09T11:17:03.124+01:00[Europe/London]","0.0","0.05"
+"Testing the Services features on the best buy application","Create a new Service & verify if the Service is added","SUCCESS","2020-06-09T11:17:03.525+01:00[Europe/London]","0.0","0.37"
+"Testing the Services features on the best buy application","Getting the services by id and verifying","SUCCESS","2020-06-09T11:17:04.133+01:00[Europe/London]","0.0","0.11"
+"Testing the Services features on the best buy application","Updating the Service created and verify it is updated with status 200","SUCCESS","2020-06-09T11:17:04.461+01:00[Europe/London]","0.0","0.25"
+"Testing the Services features on the best buy application","Deleting the service created and verify it is deleted","SUCCESS","2020-06-09T11:17:04.958+01:00[Europe/London]","0.0","0.5"

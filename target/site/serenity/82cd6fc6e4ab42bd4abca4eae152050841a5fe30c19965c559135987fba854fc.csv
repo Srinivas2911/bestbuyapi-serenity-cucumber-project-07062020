@@ -1,0 +1,6 @@
+"Story","Title","Result","Date","Stability","Duration (s)"
+"Testing the Categories features on the best buy application","Verify if best buy application categories can be accessed by users","SUCCESS","2020-06-09T11:16:21.655+01:00[Europe/London]","0.0","1.13"
+"Testing the Categories features on the best buy application","Create a new Category & verify if the Category is added","SUCCESS","2020-06-09T11:16:22.983+01:00[Europe/London]","0.0","0.3"
+"Testing the Categories features on the best buy application","Getting the Category by id and verifying","SUCCESS","2020-06-09T11:16:23.356+01:00[Europe/London]","0.0","0.11"
+"Testing the Categories features on the best buy application","Updating the Category created and verify it is updated with status 200","SUCCESS","2020-06-09T11:16:23.536+01:00[Europe/London]","0.0","0.41"
+"Testing the Categories features on the best buy application","Deleting the Category created and verify it is deleted","SUCCESS","2020-06-09T11:16:24.056+01:00[Europe/London]","0.0","0.36"

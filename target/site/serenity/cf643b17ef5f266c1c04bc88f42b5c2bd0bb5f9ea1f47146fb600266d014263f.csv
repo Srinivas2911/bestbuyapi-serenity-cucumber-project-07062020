@@ -1,0 +1,5 @@
+"Story","Title","Result","Date","Stability","Duration (s)"
+"Services CRUD test","Creating a new Service in the list","SUCCESS","2020-06-09T11:15:47.649+01:00[Europe/London]","0.0","21.26"
+"Services CRUD test","Verify service was added to the list","SUCCESS","2020-06-09T11:16:10.133+01:00[Europe/London]","0.0","0.73"
+"Services CRUD test","Updating the service information and verifying ","SUCCESS","2020-06-09T11:16:10.866+01:00[Europe/London]","0.0","0.9"
+"Services CRUD test","Deleting the category information and verify if the category is deleted ","SUCCESS","2020-06-09T11:16:11.772+01:00[Europe/London]","0.0","2.42"
